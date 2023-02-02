@@ -1,5 +1,6 @@
 package com.lucas.attornatustest.controller;
 
+import com.lucas.attornatustest.entity.Address;
 import com.lucas.attornatustest.entity.Person;
 import com.lucas.attornatustest.request.PersonRequestBody;
 import com.lucas.attornatustest.service.PersonService;
@@ -31,6 +32,11 @@ public class PersonController {
 		return new ResponseEntity<>(service.findOneById(id), OK);
 	}
 
+	@GetMapping("/addresses/{personId}")
+	public ResponseEntity<List<Address>> findAllAddresses(@PathVariable UUID personId) {
+		return new ResponseEntity<>(service.listAllAddressByPerson(personId), OK);
+	}
+
 	@PostMapping
 	public ResponseEntity<Person> createPerson(@RequestBody @Valid PersonRequestBody requestBody) {
 		Person personCreated = service.createPerson(requestBody);
@@ -38,8 +44,8 @@ public class PersonController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Person> updatePerson(@RequestBody @Valid PersonRequestBody requestBody,
+	public ResponseEntity<Person> updatePerson(@RequestBody @Valid PersonRequestBody personRequestBody,
 	                                           @PathVariable UUID id) {
-		return new ResponseEntity<>(service.updatePerson(requestBody, id), OK);
+		return new ResponseEntity<>(service.updatePerson(personRequestBody, id), OK);
 	}
 }
