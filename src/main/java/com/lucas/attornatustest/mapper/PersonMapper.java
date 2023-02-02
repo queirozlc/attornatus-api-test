@@ -1,7 +1,7 @@
 package com.lucas.attornatustest.mapper;
 
 import com.lucas.attornatustest.entity.Person;
-import com.lucas.attornatustest.request.person.PersonPostRequestBody;
+import com.lucas.attornatustest.request.PersonRequestBody;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -12,5 +12,6 @@ public interface PersonMapper {
 
 	@Mapping(target = "mainAddress", ignore = true)
 	@Mapping(target = "id", ignore = true)
-	Person toPerson(PersonPostRequestBody personPostRequestBody);
+	@Mapping(target = "birthDate", ignore = true)
+	Person toPerson(PersonRequestBody personRequestBody);
 }
