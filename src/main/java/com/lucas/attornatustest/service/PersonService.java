@@ -1,13 +1,19 @@
 package com.lucas.attornatustest.service;
 
 import com.lucas.attornatustest.entity.Person;
-import com.lucas.attornatustest.request.person.PersonPostRequestBody;
-import jakarta.validation.Valid;
-import org.springframework.stereotype.Service;
+import com.lucas.attornatustest.request.PersonRequestBody;
 
-@Service
+import java.util.List;
+import java.util.UUID;
+
 public interface PersonService {
 
-	Person createPerson(@Valid PersonPostRequestBody personPostRequestBody);
+	Person createPerson(PersonRequestBody personRequestBody);
+
+	Person updatePerson(PersonRequestBody personRequestBody, UUID id);
+
+	Person findOneById(UUID id);
+
+	List<Person> findAll();
 
 }
