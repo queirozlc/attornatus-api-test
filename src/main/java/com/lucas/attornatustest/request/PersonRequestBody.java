@@ -1,12 +1,11 @@
 package com.lucas.attornatustest.request;
 
+import com.lucas.attornatustest.entity.Address;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -17,5 +16,5 @@ public class PersonRequestBody {
 	private String name;
 	@NotBlank(message = "O campo data de nascimento não pode ser vazio.")
 	private String birthDate;
-	private UUID mainAddressId;
+	private Address mainAddress;
 }

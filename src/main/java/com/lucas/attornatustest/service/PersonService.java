@@ -1,5 +1,6 @@
 package com.lucas.attornatustest.service;
 
+import com.lucas.attornatustest.entity.Address;
 import com.lucas.attornatustest.entity.Person;
 import com.lucas.attornatustest.request.PersonRequestBody;
 
@@ -15,5 +16,7 @@ public interface PersonService {
 	Person findOneById(UUID id);
 
 	List<Person> findAll();
+
+	List<Address> listAllAddressByPerson(UUID personId);
 
 }

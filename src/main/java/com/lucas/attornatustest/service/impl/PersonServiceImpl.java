@@ -31,17 +31,18 @@ public class PersonServiceImpl implements PersonService {
 	public Person createPerson(@Valid PersonRequestBody personRequestBody)  {
 		Person personToBeSave = PersonMapper.INSTANCE.toPerson(personRequestBody);
 		LocalDate birthDate = toLocalDate(personRequestBody.getBirthDate());
-		Address mainAddress = null;
-		if (personRequestBody.getMainAddressId() != null) {
-			mainAddress = addressRepository.findById(personRequestBody.getMainAddressId())
-					.orElseThrow(() -> new BadRequestException("Não existe endereço informado com esse id."));
+
+		if (birthDate.isAfter(LocalDate.now())) {
+			throw new BadRequestException("A data de nascimento não pode ser maior que a data atual.");
 		}
-		if (birthDate.getYear() > LocalDate.now().getYear()) {
-			throw new BadRequestException("O ano de nascimento não pode ser maior que o atual.");
-		}
-		personToBeSave.setMainAddress(mainAddress);
+
 		personToBeSave.setBirthDate(birthDate);
-		return repository.save(personToBeSave);
+		Person personSaved = repository.save(personToBeSave);
+		if (personSaved.getMainAddress() != null) {
+			personSaved.getMainAddress().setPerson(personSaved);
+			addressRepository.save(personSaved.getMainAddress());
+		}
+		return personSaved;
 	}
 
 	@Transactional
@@ -51,20 +52,17 @@ public class PersonServiceImpl implements PersonService {
 				.orElseThrow(() -> new BadRequestException("Não existe usuário com id informado."));
 		LocalDate birthDate = toLocalDate(personRequestBody.getBirthDate());
 		Person personRequest = PersonMapper.INSTANCE.toPerson(personRequestBody);
-		Address mainAddress = null;
-		if (personRequestBody.getMainAddressId() != null) {
-			mainAddress = addressRepository.findById(personRequestBody.getMainAddressId())
-					.orElseThrow(() -> new BadRequestException("Não existe endereço informado com esse id."));
-		}
-		if (personRequestBody.getMainAddressId() == null && mainAddress == null) {
-			personRequest.setMainAddress(personToBeUpdated.getMainAddress());
-		}
 
 		if (birthDate.getYear() > LocalDate.now().getYear()) {
 			throw new BadRequestException("O ano de nascimento não pode ser maior que o atual.");
 		}
 
-		personRequest.setMainAddress(mainAddress);
+		if (personRequest.getMainAddress() != null) {
+			personRequest.getMainAddress().setPerson(personRequest);
+			personRequest.getMainAddress().getPerson().setId(personToBeUpdated.getId());
+			addressRepository.save(personRequest.getMainAddress());
+		}
+
 		personRequest.setId(personToBeUpdated.getId());
 		personRequest.setBirthDate(birthDate);
 		return repository.save(personRequest);
@@ -81,5 +79,13 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public List<Person> findAll() {
 		return repository.findAll();
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Address> listAllAddressByPerson(UUID personId) {
+		Person person = repository.findById(personId)
+				.orElseThrow(() -> new BadRequestException("Não existe nenhuma pessoa com esse id."));
+		return addressRepository.findAllByPerson(person);
 	}
 }

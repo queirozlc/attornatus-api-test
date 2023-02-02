@@ -10,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 public interface PersonMapper {
 	PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
 
-	@Mapping(target = "mainAddress", ignore = true)
+	@Mapping(target = "mainAddress", source = "mainAddress")
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "birthDate", ignore = true)
 	Person toPerson(PersonRequestBody personRequestBody);
