@@ -18,7 +18,6 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
-	private String publicSpace;
 	private String streetAddress;
 	private Integer number;
 	private String city;
