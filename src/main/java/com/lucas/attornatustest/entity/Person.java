@@ -22,6 +22,6 @@ public class Person {
 	private UUID id;
 	private String name;
 	private LocalDate birthDate;
-	@OneToOne(targetEntity = Address.class, fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Address mainAddress;
 }
