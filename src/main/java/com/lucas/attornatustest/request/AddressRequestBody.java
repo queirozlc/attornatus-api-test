@@ -16,10 +16,12 @@ import java.util.UUID;
 public class AddressRequestBody {
 	@NotBlank(message = "O campo 'endereço' não pode ser vazio.")
 	private String streetAddress;
-	@NotBlank(message = "O campo 'número' não pode ser vazio.")
+	@NotNull(message = "O campo 'número' não pode ser vazio.")
 	private Integer number;
 	@NotBlank(message = "O campo 'cidade' não pode ser vazio.")
 	private String city;
+	@NotBlank(message = "O campo 'cep' não pode ser vazio.")
+	private String zipCode;
 	@NotNull(message = "O id da pessoa (dona do endereço) é obrigatório.")
 	private UUID personId;
 }
