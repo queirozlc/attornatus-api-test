@@ -1,5 +1,6 @@
 package com.lucas.attornatustest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,8 @@ public class Address {
 	private String streetAddress;
 	private Integer number;
 	private String city;
-	@ManyToOne(targetEntity = Person.class, fetch = FetchType.LAZY)
+	private String zipCode;
+	@ManyToOne
+	@JsonIgnore
 	private Person person;
 }
