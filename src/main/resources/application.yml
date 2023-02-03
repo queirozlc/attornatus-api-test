@@ -9,4 +9,11 @@ spring:
       enabled: true
       path: /h2-console
   jpa:
-    show-sql: true
+    hibernate:
+      ddl-auto: update
+server:
+  error:
+    include-stacktrace: on_param
+logging:
+  level:
+    sql: debug
