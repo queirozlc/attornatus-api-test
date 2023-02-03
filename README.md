@@ -178,7 +178,7 @@
 []
 ```
 
-### Find One Person By ID: GET (localhost:8080/api/person/{id}
+### Find One Person By ID: GET (localhost:8080/api/person/{id})
 
 ### Returns
 
@@ -244,7 +244,7 @@
 }
 ```
 
-### Update Person: PUT (locahost:8080/api/person/{id}
+### Update Person: PUT (locahost:8080/api/person/{id})
 
 ```json
 
