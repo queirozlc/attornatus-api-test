@@ -2,7 +2,10 @@ package com.lucas.attornatustest.util;
 
 import com.lucas.attornatustest.entity.Address;
 import com.lucas.attornatustest.entity.Person;
+import com.lucas.attornatustest.request.AddressRequestBody;
 import com.lucas.attornatustest.request.PersonRequestBody;
+
+import java.util.UUID;
 
 import static com.lucas.attornatustest.util.DateFormatter.toLocalDate;
 
@@ -61,6 +64,17 @@ public class TestUtils {
 				.builder()
 				.name(person.getName())
 				.birthDate("19/01/1958")
+				.build();
+	}
+
+	public static AddressRequestBody createAddressDto() {
+		return AddressRequestBody
+				.builder()
+				.zipCode("123")
+				.streetAddress("Rua 1")
+				.number(1)
+				.city("City")
+				.personId(UUID.fromString("0f0da5e1-daf8-40ba-b04b-000ea58a4f62"))
 				.build();
 	}
 }
