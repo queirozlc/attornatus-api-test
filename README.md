@@ -209,7 +209,7 @@
 }
 ```
 
-### Find All Addresses By Person: GET (localhost:8080/api/person/address{id}
+### Find All Addresses By Person: GET (localhost:8080/api/person/address{id})
 
 ### Returns
 
