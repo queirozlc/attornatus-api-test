@@ -22,8 +22,8 @@
 - [x]  Editar pessoa
 - [x]  Consultar pessoa
 - [x]  Listar pessoas
-- [ ]  Criar endereço pessoa
-- [ ]  Listar endereços da pessoa
+- [x]  Criar endereço pessoa
+- [x]  Listar endereços da pessoa
 - [x]  Poder informar qual principal endereço principal da pessoa
 
 ## 🚀 How to use
