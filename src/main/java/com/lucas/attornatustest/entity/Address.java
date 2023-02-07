@@ -2,14 +2,15 @@ package com.lucas.attornatustest.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
+import java.util.Objects;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -23,7 +24,22 @@ public class Address {
 	private Integer number;
 	private String city;
 	private String zipCode;
+	@ToString.Exclude
 	@ManyToOne
+	@JoinColumn
 	@JsonIgnore
 	private Person person;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+		Address address = (Address) o;
+		return id != null && Objects.equals(id, address.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 }

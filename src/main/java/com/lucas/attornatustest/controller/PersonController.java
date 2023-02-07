@@ -32,11 +32,6 @@ public class PersonController {
 		return new ResponseEntity<>(service.findOneById(id), OK);
 	}
 
-	@GetMapping("/addresses/{personId}")
-	public ResponseEntity<List<Address>> findAllAddresses(@PathVariable UUID personId) {
-		return new ResponseEntity<>(service.listAllAddressByPerson(personId), OK);
-	}
-
 	@PostMapping
 	public ResponseEntity<Person> createPerson(@RequestBody @Valid PersonRequestBody requestBody) {
 		Person personCreated = service.createPerson(requestBody);
